@@ -1,0 +1,34 @@
+{{template "header"}}
+    <title>首页 - Beego博客</title>
+</head>	
+<body onload="startTime()">
+	<div class="navbar navbar-default navbar-fixed-top">
+		<div class="container">{{template "navbar" .}}</div>	
+	</div>		
+	<div class="container">
+		<div class="col-md-9">
+			<h3>博客列表</h3>
+            {{range .Topics}}
+                <div class="page-header">
+                    <h4>
+                    	<a href="/topic/view/{{.Id}}">{{.TopicTitle}}</a>
+                    </h4>
+                    <h6 class="text-muted">
+                    	{{.UserName}}&nbsp;&nbsp;{{.Created}}&nbsp;&nbsp;浏览({{.Views}})&nbsp;&nbsp;评论({{.CommentCount}})
+                    </h6>
+                </div>
+            {{end}} 
+		</div>			
+		<div class="col-md-3">
+            <h4>分类列表</h4>
+            <ul>
+                {{range .TopicTypes}}
+                	<li>
+                		<a href="/?cate={{.TopicTypeName}}">{{.TopicTypeName}}</a>
+                	</li>
+                {{end}}
+            </ul>
+		</div>
+	</div>
+</body>
+</html>

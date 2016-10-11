@@ -1,0 +1,74 @@
+{{define "header"}}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+    <link rel="shortcut icon" href="/static/img/favicon1.png" />
+    
+	<link rel="stylesheet" href="/static/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/static/css/editormd.css" />
+
+    <!-- markdown editor : markdown to html -->
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/marked.min.js"></script>
+    <script src="/static/js/prettify.min.js"></script>
+    <script src="/static/js/raphael.min.js"></script>
+    <script src="/static/js/underscore.min.js"></script>
+    <script src="/static/js/sequence-diagram.min.js"></script>
+    <script src="/static/js/flowchart.min.js"></script>
+    <script src="/static/js/jquery.flowchart.min.js"></script>
+    <script src="/static/js/editormd.js"></script>
+    <script src="/static/js/editormd.min.js"></script>
+    <script>
+        $(function() {
+            var testEditormdView2;
+            testEditormdView2 = editormd.markdownToHTML("test-editormd-view2", {
+                htmlDecode      : "style,script,iframe",  // you can filter tags decode
+                emoji           : true,
+                taskList        : true,
+                tex             : true,  // 默认不解析
+                flowChart       : true,  // 默认不解析
+                sequenceDiagram : true,  // 默认不解析
+            });
+        });
+    </script>
+
+    <!-- category alert -->
+    <script>
+        function topicSubmit(){
+            var sid = document.getElementById("sid");
+            var index = sid.selectedIndex;
+            var val = sid.options[index].value;
+            if (val == ""){
+                alert("请选择分类！")
+                return false;
+            }
+            return true;
+        }
+    </script>
+
+    <!-- display date/time -->
+    <script>
+        function startTime(){
+            var date = new Date();
+            var year = date.getFullYear();
+            var month = checkTime(date.getMonth() + 1);
+            var day = checkTime(date.getDate());
+            var weekDay = checkWeekDay(date.getDay());
+            var hour = checkTime(date.getHours());
+            var minute = checkTime(date.getMinutes());
+            var second = checkTime(date.getSeconds());
+            document.getElementById("current-time-id").innerHTML = year + "-" + month + "-" + day +
+                " " + weekDay + " " + hour + ":" + minute + ":" + second;
+            setTimeout(function(){startTime();}, 500);
+        }
+        function checkTime(i){
+            return (i < 10) ? "0"+i: i;
+        }
+        function checkWeekDay(wD){
+            var arrWeekDays = ["日", "一", "二", "三", "四", "五", "六"];
+            return "星期" + arrWeekDays[wD];
+        }
+    </script>
+{{end}}

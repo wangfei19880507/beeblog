@@ -1,0 +1,55 @@
+{{template "header"}}
+    <title>分类 - Beego博客</title>
+</head>	
+<body onload="startTime()">
+	<div class="navbar navbar-default navbar-fixed-top">
+		<div class="container">{{template "navbar" .}}</div>	
+	</div>		
+	<div class="container">
+		<h3>分类列表</h3>
+		<form class="form-inline" method="get" action="/category">
+			<div class="form-group">
+				<input id="categoryname" type="text" class="form-control" name="categoryname" placeholder="Enter category name">
+				<input type="hidden" name="op" value="add">
+			</div>
+			<button type="submit" class="btn btn-default" onclick="return checkInput();">添加分类</button>
+		</form>      	
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>类别</th>
+					<th>创建时间</th>
+					<th>浏览</th>
+					<th>博客</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{range .Categories}}
+					<tr>
+						<td>{{.Id}}</td>
+						<td><a href="/?cate={{.CategoryName}}">{{.CategoryName}}</a></td>
+						<td>{{.Created}}</td>
+						<td>{{.Views}}</td>
+						<td>{{.TopicCount}}</td>
+						<td>
+							<a href="/category?op=del&id={{.Id}}">删除</a>
+						</td>
+					</tr>
+				{{end}}
+			</tbody>
+		</table>
+	</div>
+	<script>
+      	function checkInput() {
+      		var categoryname = document.getElementById("categoryname");
+      		if (categoryname.value.length == 0) {
+      			alert("请输入分类名！");
+      			return false;
+      		}
+      		return true;
+      	}
+  	</script>
+</body>
+</html>

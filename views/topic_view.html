@@ -1,0 +1,56 @@
+{{template "header"}}
+	<title>{{.Topic.TopicTitle}} - Beego博客</title>
+</head>
+<body onload="startTime()">
+	<div class="navbar navbar-default navbar-fixed-top">
+		<div class="container">{{template "navbar" .}}</div>	
+	</div>		
+	<div class="container">
+		{{$labels := .Labels}}
+		{{with .Topic}}
+			<h3>{{.TopicTitle}}
+				<small>
+					{{.Created}}&nbsp;
+					分类({{.CategoryName}})&nbsp;
+					标签({{range $labels}}<a href="/?label={{.}}">{{.}}</a>{{end}})
+				</small>
+			</h3>
+			<h5>
+				附件(<a href="/attachment/{{.Attachment}}">{{.Attachment}}</a>)
+			</h5>
+			<!-- markdown to html : blog content -->
+            <div id="test-editormd-view2">
+                <textarea id="append-test" style="display:none;">{{.TopicContent}}</textarea>
+            </div>
+		{{end}}
+	</div>
+	<div class="container">
+		<div class="form-group">
+			<h4>查看评论</h4>
+			{{$topicid := .Topic.Id}}
+			{{$isLogin := .IsLogin}}
+	        {{range .Comments}}
+	            <h5>
+	            	{{.UserName}} 
+	            	<small>
+	            		{{.Created}}&nbsp;&nbsp;
+	            		<a href="/comment/delete?topicid={{$topicid}}&cid={{.Id}}">删除</a>
+	            	</small> 
+	            </h5>
+	            {{.CommentContent}}
+	        {{end}}
+		</div>
+        <h4>发表评论</h4>
+	    <form method="post" action="/comment/add">
+	        <input type="hidden" name="topicid" value="{{.Topic.Id}}"/>
+	        <div class="form-group">
+	            <label>评论内容</label>
+	            <textarea class="form-control" name="commentcontent" id="" style="width: 500px; height: 250px;"></textarea>
+	        </div>
+	        <div style="width:90%;margin: 10px auto;">
+                <input type="submit" name="submit" value="提交评论" style="padding: 2px;"/>
+            </div>
+	    </form>
+	</div>
+</body>
+</html>

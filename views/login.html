@@ -1,0 +1,61 @@
+{{template "header"}}
+    <title>登录 - Beego博客</title>
+</head>	
+<body onload="startTime()">
+	<div class="navbar navbar-default navbar-fixed-top">
+		<div class="container">{{template "navbar" .}}</div>	
+	</div>	
+	<div class="container" style="width: 500px;">
+		<form class="form-horizontal" method="POST" action="/login">
+			<div class="form-group">
+				<label class="col-lg-4 control-label">用户名</label>
+				<div class="col-lg-6">
+					<input id="username" type="text" class="form-control" name="username" placeholder="UserName"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-4 control-label">密码</label>
+				<div class="col-lg-6">
+					<input id="password" type="password" class="form-control" name="password" placeholder="Password"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-lg-offset-5 col-lg-10">
+					<div class="checkbox">
+						<label>
+							<input name="autoLogin" type="checkbox"/>
+						</label>下次自动登录						
+					</div>
+					<!-- 添加 “忘记密码” ，跳转至 /password/forget ，使用注册邮箱找回密码 -->
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-lg-offset-5 col-lg-10">
+			    	<a href="/login">
+			    		<button type="submit" class="btn btn-default" onclick="return checkInput();">登录</button>
+			    	</a>
+			       	<a href="/register" class="btn btn-default">注册</a>
+			    </div>
+			</div>
+		</form>
+	</div>
+
+	<script>
+      	function checkInput() {
+      		var username = document.getElementById("username");
+      		if (username.value.length == 0) {
+      			alert("请输入帐号！");
+      			return false;
+      		}
+      		var password = document.getElementById("password");
+      		if (password.value.length == 0) {
+      			alert("请输入密码！");
+      			return false;
+      		}
+
+      		alert("登录成功！");
+      		return true;
+      	}
+    </script>
+</body>
+</html>

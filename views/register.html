@@ -1,0 +1,60 @@
+{{template "header"}}
+    <title>注册 - Beego博客</title>
+</head>	
+<body onload="startTime()">
+	<div class="navbar navbar-default navbar-fixed-top">
+		<div class="container">{{template "navbar" .}}</div>	
+	</div>	
+	<div class="container" style="width: 500px;">
+		<form  id="wangfeishishagua" class="form-horizontal" method="POST" action="/register">
+			<div class="form-group">
+				<label class="col-lg-4 control-label">用户名</label>
+				<div class="col-lg-6">
+					<input id="username" type="text" class="form-control" name="username" placeholder="UserName"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-4 control-label">密码</label>
+				<div class="col-lg-6">
+					<input id="password" type="password" class="form-control" name="password" placeholder="PassWord"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-4 control-label">邮箱</label>
+				<div class="col-lg-6">
+					<input id="email" type="text" class="form-control" name="email" placeholder="Email"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-lg-offset-5 col-lg-10">
+			    	<a href="#" class="btn btn-default" onclick="return checkInput();">立即注册</a>
+			    </div>
+			</div>				
+		</form>
+	</div>
+
+	<script>
+      	function checkInput() {
+      		var username = document.getElementById("username");
+      		if (username.value.length == 0) {
+      			alert("请输入用户名！");
+      			return false;
+      		}
+      		var password = document.getElementById("password");
+      		if (password.value.length == 0) {
+      			alert("请输入密码！");
+      			return false;
+      		}
+      		var email = document.getElementById("email");
+      		if (email.value.length == 0) {
+      			alert("请输入邮箱！");
+      			return false;
+      		}
+
+      		alert("注册成功！");
+      		document.getElementById("wangfeishishagua").submit()
+      		return true;
+      	}
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+{{template "header"}}
+	<title>修改博客 - Beego博客</title>
+</head>
+<body onload="startTime()">
+	<div class="navbar navbar-default navbar-fixed-top">
+		<div class="container">{{template "navbar" .}}</div>	
+	</div>
+	<div class="container">
+		<h4>修改博客</h4>
+		<form method="post" action="/topic" enctype="multipart/form-data">
+			<input type="hidden" name="tid" value="{{.Tid}}"/>
+			<p>标题</p>
+			<div class="form-group">				
+				<input type="text" class="form-control" name="topictitle" style="width:300px; height:30px;" value="{{.Topic.TopicTitle}}"/>
+			</div>
+			<p>分类</p>				
+			<div class="form-group">					
+                <select id="sid" onchange="return topicSubmit();" name="categoryname">
+                    <option value="" selected>请选择分类</option>
+                    {{range .Categories}}
+                        <option value="{{.CategoryName}}">{{.CategoryName}}</option>
+                    {{end}}
+                </select>
+			</div>
+			<p>标签</p>				
+			<div class="form-group">
+				<input type="text" class="form-control" name="label" style="width:300px; height:30px;" value="{{.Topic.Labels}}"/>
+			</div>
+			<p>附件
+				<a href="/attachment/{{.Topic.Attachment}}">{{.Topic.Attachment}}</a>
+			</p>
+			<div class="form-group">				
+				<input type="file" class="form-control" name="attachment" style="width:300px; height:30px;"/>
+			</div>
+			<div style="width:90%;margin: 10px auto;">
+                <input type="submit" name="submit" value="提交修改" style="padding: 2px;" onclick="return topicSubmit();"/> 
+            </div>
+		    <div class="editormd" id="cid">
+                <!-- <textarea class="editormd-html-textarea" name="content-html-code">{{.Topic.TopicContent}}</textarea> -->
+		    	<textarea class="editormd-markdown-textarea" name="content-markdown-doc">{{.Topic.TopicContent}}</textarea>
+            </div>
+		</form>
+	</div>
+    <script>
+        var testEditor = editormd("cid", {
+            toc : true,
+            emoji : true,
+            width  : "100%",
+            height : 640,
+            taskList : true,
+            path   : "/static/css/",
+            saveHTMLToTextarea : true
+        });        
+        // testEditor.getHTML();         // 获取 Textarea 保存的 HTML 源码
+        // testEditor.getPreviewedHTML(); // 获取预览窗口里的 HTML，在开启 watch 且没有开启 saveHTMLToTextarea 时使用
+        testEditor.getMarkdown();        // 获取 Markdown 源码
+    </script>
+</body>
+</html>
